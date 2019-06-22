@@ -1,24 +1,27 @@
 package pl.coderslab.utils;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
+
+
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DbUtil {
-    private static DataSource dataSource;
+
+    private static final Logger logger = Logger.getLogger(DbUtil.class);
+
     public static Connection getConnection() throws SQLException {
-        return getInstance().getConnection();   }
-    private static DataSource getInstance() {
-        if (dataSource == null) {
-            try {
-                Context initContext = new InitialContext();
-                Context envContext = (Context)initContext.lookup("java:/comp/env");
-                dataSource = (DataSource)envContext.lookup("jdbc/school");
-            } catch (NamingException e) { e.printStackTrace(); }
+
+        Connection conn;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/school?useSSL=false&serverTimezone=UTC", "root", "coderslab");
+            return conn;
+        } catch (SQLException | ClassNotFoundException e) {
+            logger.error("Błąd połączenia z bazą danych", e);
+            throw new RuntimeException("Błąd połączenia z bazą danych", e);
         }
-        return dataSource;
     }
 }
