@@ -22,6 +22,8 @@ public class SolutionDao {
             "SELECT * FROM solution WHERE user_id = ?";
     private static String FIND_ALL_SOLUTIONS_BY_EXERCISE_ID_QUERY =
             "SELECT * FROM solution WHERE exercise_id = ?";
+    private static String FIND_RECENT_SOLUTIONS_QUERY =
+            "SELECT * FROM solution ORDER BY created LIMIT ?";
 
 
     public Solution create(Solution solution) {
@@ -140,6 +142,29 @@ public class SolutionDao {
         try (Connection conn = DbUtil.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(FIND_ALL_SOLUTIONS_BY_EXERCISE_ID_QUERY);
             statement.setInt(1, exerciseId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Solution solution = new Solution();
+                solution.setId(resultSet.getInt("id"));
+                solution.setCreated(resultSet.getString("created"));
+                solution.setUpdated(resultSet.getString("updated"));
+                solution.setDescription(resultSet.getString("description"));
+                solution.setExerciseId(resultSet.getInt("exercise_id"));
+                solution.setUserId(resultSet.getInt("user_id"));
+                solutions.add(solution);
+            }
+            return solutions;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<Solution> findRecent(int limit){
+        List<Solution> solutions = new ArrayList<>();
+        try (Connection conn = DbUtil.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement(FIND_RECENT_SOLUTIONS_QUERY);
+            statement.setInt(1, limit);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Solution solution = new Solution();
