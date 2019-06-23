@@ -7,8 +7,9 @@
 </head>
 <body>
 <jsp:include page="/header.jsp"/>
-
+<br>
 </div>
+<h3>Recent solutions</h3>
 <table border="1">
     <thead>
     <tr>

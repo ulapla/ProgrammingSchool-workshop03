@@ -6,7 +6,7 @@
 <body>
 <jsp:include page="/header.jsp"/>
 
-    <h1>Exercise's solution details</h1>
+    <h3>Exercise's solution details</h3>
     <div>
 
         ${solution.description}

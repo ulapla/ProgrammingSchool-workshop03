@@ -13,11 +13,13 @@
         <tr>
             <th>Name</th>
             <th>Email</th>
+            <th></th>
         </tr>
     <c:forEach var="user" items="${users}">
         <tr>
             <td>${user.name}</td>
             <td>${user.email}</td>
+            <td><a href="/user.details?id=${user.id}">details</a></td>
         </tr>
 
     </c:forEach>
