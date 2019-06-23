@@ -43,7 +43,7 @@
             </c:if>
             <c:if test="${id == null}">
                 <div>
-                    <div><h3>Add exercise</h3></div>
+                    <div><h3>Add user</h3></div>
                 </div>
                 <table>
                     <tbody>
