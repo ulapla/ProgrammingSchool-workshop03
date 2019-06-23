@@ -21,7 +21,7 @@ public class EditExercise extends HttpServlet {
             Exercise exercise = exerciseDao.read(Integer.parseInt(exerciseId));
             req.setAttribute("exercise",exercise);
         }
-        req.setAttribute("id",exerciseId);
+        req.setAttribute("id",exerciseId);//view will know which form display
         req.getRequestDispatcher("/edit.exercise.jsp").forward(req,resp);
 
     }

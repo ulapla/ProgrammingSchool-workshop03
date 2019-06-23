@@ -74,13 +74,18 @@ public class UserDao {
             PreparedStatement statement = conn.prepareStatement(UPDATE_USER_QUERY);
             statement.setString(1, user.getName());
             statement.setString(2, user.getEmail());
-            // czy zmieniono hasło / if password is changed
-            if(!user.getPassword().equals(read(user.getId()).getPassword())) {
-                //szyfrowanie hasła / hash new password
-                statement.setString(3, BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+            if(user.getPassword() != null) {
+
+                // czy zmieniono hasło / if password is changed
+                if (!user.getPassword().equals(read(user.getId()).getPassword())) {
+                    //szyfrowanie hasła / hash new password
+                    statement.setString(3, BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+                } else {//otherwise it is already hashed
+                    statement.setString(3, user.getPassword());
+                }
             }
-            else{//otherwise it is already hashed
-                statement.setString(3, user.getPassword());
+            else {// jesli hasła nie podano/ if password not given
+                statement.setString(3, read(user.getId()).getPassword());
             }
             statement.setInt(4, user.getUserGroupId());
             statement.setInt(5, user.getId());
