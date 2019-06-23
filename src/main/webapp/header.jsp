@@ -2,4 +2,5 @@
 <header>
     <a href="/">Main page</a>
     <a href="/groups">Groups</a>
+    <a href="/panelAdmin">Admin panel</a>
 </header>
