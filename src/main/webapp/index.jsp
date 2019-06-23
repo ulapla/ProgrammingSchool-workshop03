@@ -12,23 +12,19 @@
 <table border="1">
     <thead>
     <tr>
-        <th>Id</th>
+        <th>Exercise</th>
+        <th>User</th>
         <th>Created</th>
-        <th>Updated</th>
-        <th>Description</th>
-        <th>Exercise Id</th>
-        <th>User Id</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
     <c:forEach var="solution" items="${solutions}">
         <tr>
-            <th>${solution.id}</th>
+            <td>${exerciseDao.read(solution.exerciseId).getTitle()}</td>
+            <td>${userDao.read(solution.userId).getName()}</td>
             <td>${solution.created}</td>
-            <td>${solution.updated}</td>
-            <td>${solution.description}</td>
-            <td>${solution.exerciseId}</td>
-            <td>${solution.userId}</td>
+            <td> <a href="/exercise.solution?id=${solution.id}">Szczegóły</a> </td>
 
         </tr>
 
