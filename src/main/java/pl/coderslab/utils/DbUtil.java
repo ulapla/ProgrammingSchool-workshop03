@@ -17,7 +17,7 @@ public class DbUtil {
         Connection conn;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/school?useSSL=false&serverTimezone=UTC", "root", "coderslab");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/school?useSSL=false&serverTimezone=UTC", "ula", "password");
             return conn;
         } catch (SQLException | ClassNotFoundException e) {
             logger.error("Błąd połączenia z bazą danych", e);

@@ -25,7 +25,7 @@
             <td>${exerciseDao.read(solution.exerciseId).getTitle()}</td>
             <td>${userDao.read(solution.userId).getName()}</td>
             <td>${solution.created}</td>
-            <td> <a href="/exercise.solution?id=${solution.id}">Szczegóły</a> </td>
+            <td> <a href="/exercise.solution?id=${solution.id}">Details</a> </td>
 
         </tr>
 

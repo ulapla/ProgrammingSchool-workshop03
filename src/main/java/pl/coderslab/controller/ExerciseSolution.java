@@ -2,6 +2,7 @@ package pl.coderslab.controller;
 
 import pl.coderslab.dao.ExerciseDao;
 import pl.coderslab.dao.SolutionDao;
+import pl.coderslab.model.Exercise;
 import pl.coderslab.model.Solution;
 
 import javax.servlet.ServletException;
@@ -19,6 +20,9 @@ public class ExerciseSolution extends HttpServlet {
         String solutionId = req.getParameter("id");
         SolutionDao solutionDao = new SolutionDao();
         Solution solution = solutionDao.read(Integer.parseInt(solutionId));
+        ExerciseDao exerciseDao = new ExerciseDao();
+        Exercise exercise = exerciseDao.read(solution.getExerciseId());
+        req.setAttribute("exercise",exercise);
         req.setAttribute("solution",solution);
         req.getRequestDispatcher("/exercise.solution.jsp").forward(req, resp);
     }
